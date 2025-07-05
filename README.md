@@ -1,6 +1,6 @@
-📘 MorseCodeTranslator
-MorseCodeTranslator is a Python program that allows you to convert between plain text and Morse code — and back again — using a simple command-line interface.
+📘 #MorseCodeTranslator
 
+MorseCodeTranslator is a Python program that allows you to convert between plain text and Morse code — and back again — using a simple command-line interface.
 Everything you need is contained in a single file: main.py.
 
 🚀 Features
