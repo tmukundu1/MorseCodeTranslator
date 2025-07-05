@@ -1,3 +1,5 @@
+import sys
+
 # The Morse Code dictionary stored as 'data'
 data = {
     "a": ".-",          "b": "-...",            "c": "-.-.",            "d": "-..",             "e": ".",           "f": "..-.",        "g": "--.",
@@ -20,20 +22,21 @@ while True:
     while proceed == False:
         try:
             # Options for display purposes only
-            choices = ("Morse Code", "Plain Text")
+            choices = ("Morse Code", "Plain Text", "Exit")
 
             # Ask the user to select conversion direction
             user_choice = int(input("What would you like to do?\n"
                                     "1. Convert plain text to morse code\n"
-                                    "2. Convert morse code to plaintext\n"
-                                    "Select 1. or 2.: "))
+                                    "2. Convert morse code to plaintext\n" \
+                                    "3. Exit\n"))
 
             # Check for valid input
-            if user_choice not in (1, 2):
+            if user_choice not in (1, 2, 3):
                 raise ValueError
 
             # Prompt user to enter text to convert
-            input_text = input(f"Enter the message to be converted to {choices[user_choice-1]}: \n").lower()
+            if user_choice != 3:
+                input_text = input(f"Enter the message to be converted to {choices[user_choice-1]}: \n").lower()
         
         except ValueError:
             # Catch invalid menu selection or non-integer input
@@ -56,6 +59,9 @@ while True:
                     # Convert Morse code to plain text
                     input_text = input_text.split()  # Split Morse code into individual codes
                     converted_chars = [reverse_dictionary[key] for key in input_text]  # Translate each code
+                case 3:
+                    print("Goodbye!")
+                    sys.exit()
         except KeyError:
             # Catch invalid characters not found in the dictionary
             print("You entered some invalid characters! You can only translate the letters A-Z and numbers 0-9: ")
