@@ -19,7 +19,7 @@ while True:
 
     # Get user input for mode selection
     proceed = False
-    while proceed == False:
+    while not proceed:
         try:
             user_choice = int(input("What would you like to do?\n"
                                     "1. Convert plain text to morse code\n"
@@ -40,8 +40,9 @@ while True:
             proceed = True  # Exit loop on valid input
 
     # Convert the input text based on user selection
+    proceed = False
     output_text = ""
-    while proceed:
+    while not proceed:
         try:
             match user_choice:
                 case 1:
@@ -57,7 +58,7 @@ while True:
             # Catch invalid characters not found in the dictionary
             print("Invalid character detected! Only use A–Z, 0–9, and valid Morse symbols.")
         else:
-            proceed = False  # Exit loop on successful conversion
+            proceed = True  # Exit loop on successful conversion
 
     # Format the final output based on conversion type
     output_text = " ".join(converted_chars) if user_choice == 1 else "".join(converted_chars)
