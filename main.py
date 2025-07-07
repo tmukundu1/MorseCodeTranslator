@@ -1,6 +1,6 @@
 import sys
 
-# The Morse Code dictionary stored as 'data'
+# Morse code dictionary for letters, digits, and common symbols
 data = {
     "a": ".-",          "b": "-...",            "c": "-.-.",            "d": "-..",             "e": ".",           "f": "..-.",        "g": "--.",
     "h": "....",         "i": "..",             "j": ".---",            "k": "-.-",             "l": ".-..",        "m": "--",          "n": "-.",              
@@ -13,66 +13,54 @@ data = {
     }
 
 while True:
-    # Load the dictionary and create a reversed version for decoding
+    # Prepare dictionaries for encoding and decoding
     dictionary = data
     reverse_dictionary = {value: key for key, value in dictionary.items()}
 
-    # Prompt the user until a valid option and message are received
+    # Get user input for mode selection
     proceed = False
     while proceed == False:
         try:
-            # Options for display purposes only
-            choices = ("Morse Code", "Plain Text", "Exit")
-
-            # Ask the user to select conversion direction
             user_choice = int(input("What would you like to do?\n"
                                     "1. Convert plain text to morse code\n"
                                     "2. Convert morse code to plaintext\n" \
-                                    "3. Exit\n"))
+                                    "3. Exit\n"
+                                    "Enter your choice (1/2/3): "))
 
             # Check for valid input
             if user_choice not in (1, 2, 3):
                 raise ValueError
 
-            # Prompt user to enter text to convert
             if user_choice != 3:
-                input_text = input(f"Enter the message to be converted to {choices[user_choice-1]}: \n").lower()
+                input_text = input(f"Enter the message to be translated: \n").lower()
         
         except ValueError:
-            # Catch invalid menu selection or non-integer input
-            print("Invalid input! Please select either 1. or 2. to proceed.\n")
+            print("Invalid input! Please select either 1, 2 or 3 to proceed.\n")
         else:
             proceed = True  # Exit loop on valid input
 
-    # Prepare for conversion
+    # Convert the input text based on user selection
     output_text = ""
-    proceed = False
-    while proceed == False:
+    while proceed:
         try:
-            # Match the user's choice and perform the appropriate conversion
             match user_choice:
                 case 1:
                     # Convert plain text to Morse code
-                    input_text = list(input_text)  # Split text into characters
-                    converted_chars = [dictionary[key] for key in input_text]  # Translate each character
+                    converted_chars = [dictionary[key] for key in list(input_text)]
                 case 2:
                     # Convert Morse code to plain text
-                    input_text = input_text.split()  # Split Morse code into individual codes
-                    converted_chars = [reverse_dictionary[key] for key in input_text]  # Translate each code
+                    converted_chars = [reverse_dictionary[key] for key in input_text.split()]
                 case 3:
                     print("Goodbye!")
                     sys.exit()
         except KeyError:
             # Catch invalid characters not found in the dictionary
-            print("You entered some invalid characters! You can only translate the letters A-Z and numbers 0-9: ")
+            print("Invalid character detected! Only use A–Z, 0–9, and valid Morse symbols.")
         else:
-            proceed = True  # Exit loop on successful conversion
+            proceed = False  # Exit loop on successful conversion
 
     # Format the final output based on conversion type
-    if user_choice == 1:
-        output_text = " ".join(converted_chars)  # Separate Morse codes with spaces
-    else:
-        output_text = "".join(converted_chars)  # Join plaintext letters into a full message
+    output_text = " ".join(converted_chars) if user_choice == 1 else "".join(converted_chars)
 
     # Display the result
     print(f"Here is the translated text: \n{output_text}\n\n")
